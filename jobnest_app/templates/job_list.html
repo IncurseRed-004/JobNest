@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Listed Jobs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-yEPZ7jP9S0QKiUQ0m3jjsO4ProIW7wvR9gXkI7JOGa2XVsw53Yke2bsdkBbjmmiX" crossorigin="anonymous">
+  </head>
+  <body class="bg-light">
+   <div class="container mt-5">
+       <h2 class="text-center" >Available jobs</h2>
+        <a href="{% url 'logout' %}" class="btn btn-danger">
+        Logout
+        </a>
+<!-- search -->
+       <form class="input-group" method="GET">
+           <input
+           type="text" name="q" class="form-control"
+           placeholder="Search jobs or companies..."
+           value ="{{query|default:'' }}"
+           >
+           <button  type="submit" class="btn btn-primary">search</button>
+       </form>
+
+<!--       job listing-->
+       {% for job in jobs %}
+       <div class="card mb-3 p-3 g-2">
+           <h4>{{ job.title }}</h4>
+           <p>{{ job.company }}</p>
+           <p>{{ job.location }}</p>
+           <p>Salary: {{ job.salary }}</p>
+
+           <a href="{% url 'job_details' job.id %}"
+              class="btn btn-primary">
+            view Details
+           </a>
+
+       </div>
+       {% empty %}
+           <p class="text-center mt-5 p5">No more jobs available.....</p>
+       {% endfor %}
+   </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.bundle.min.js" integrity="sha384-WyOxWvTyr1QaMPfiPJSv76iReVthorl5uWlFtZPyK0IEB0hGzo9y5Bp9mYanr8Bu" crossorigin="anonymous"></script>
+  </body>
+</html>
